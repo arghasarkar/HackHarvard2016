@@ -20,13 +20,19 @@ def imagetotext(url):
         data = response.read()
         #print(data)
         word=""
-        data=data[data.find("textAngle")+len("textAngle"):]
+        x=data.find("bounding")
+        data=data[x+1:]
+        data=data[data.find('"')+1:]
+        data=data[data.find('"')+1:]
+        #print data
+        coordinates=data[:data.find('"')]
+        #print coordinates
         while (data.find("text")!=-1):
             data=data[data.find("text")+len("text")+3:]
             #print data
             x=data.find('"')
             word=word+" "+str(data[:x]).lower()
-        return word
+        return word,coordinates
         conn.close()
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
@@ -61,9 +67,9 @@ def entityextraction(inputvalue):
             x=data.find('"')
             data=data[x+1:]
         del ind[-1]
-        print ind
+        #print ind
         actualstring=inputvalue.split()
-        print actualstring
+        #print actualstring
         grammar=["VB","RB","NN","NNP","VBG","NNS","DT","JJ"]
         count=0
         result=[]
@@ -72,7 +78,7 @@ def entityextraction(inputvalue):
                 if i==x:
                     result.append(actualstring[count])
             count=count+1
-        print result
+        #print result
         conn.close()
         return result
     except Exception as e:
@@ -124,8 +130,9 @@ def genImageLink(inputValue):
 #inputvalue="Do not enter workers only"  
 url=sys.argv[1]
 #url="https://s-media-cache-ak0.pinimg.com/236x/02/cd/79/02cd7964ae527af923fe9890de199740.jpg"
-string=imagetotext(url)
-print string
+string,coordinates=imagetotext(url)
+#print string
+print coordinates
 listvalues=entityextraction(string)
 for i in listvalues:
     print genImageLink(i)   
