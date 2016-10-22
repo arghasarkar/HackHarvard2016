@@ -1,4 +1,5 @@
 import httplib, urllib, base64
+import sys
 def imagetotext(url):
     headers = {
         # Request headers
@@ -120,8 +121,9 @@ def genImageLink(inputValue):
 #inputvalue="No smoking"   
 #inputvalue="Wet floor ahead"   
 #inputvalue="Slow down kids playing"   
-#inputvalue="Do not enter workers only"   
-url="https://s-media-cache-ak0.pinimg.com/236x/02/cd/79/02cd7964ae527af923fe9890de199740.jpg"
+#inputvalue="Do not enter workers only"  
+url=sys.argv[1]
+#url="https://s-media-cache-ak0.pinimg.com/236x/02/cd/79/02cd7964ae527af923fe9890de199740.jpg"
 string=imagetotext(url)
 print string
 listvalues=entityextraction(string)
