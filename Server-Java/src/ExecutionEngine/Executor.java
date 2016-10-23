@@ -60,23 +60,32 @@ public class Executor {
                         System.out.println("Here is the standard output of the command:\n");
                         String s = null;
                         int curCount = 0;
+                        String jsonStr = "<!DOCTYPE html><html><head></head><body>";
                         while ((s = stdInput.readLine()) != null) {
                             if (curCount > 1) {
                                 extractUrl(s);
                             }
+                            if (curCount == 1) {
+                                jsonStr += "<h1>" + s + "</h1>";
+                            }
                             curCount++;
                         }
 
-                        String jsonStr = "";
-
                         for (int i = 0; i < v.size(); i++) {
-                            String tempImg = "<img class='output-images' src='" + v.elementAt(i) + "' alt='some image' />";
+                            String tempImg = "<br /><br /><img style='height: 150px; width: 200px;' class='output-images' src='" + v.elementAt(i) + "' alt='some image' />";
                             jsonStr += tempImg;
                         }
+
+                        jsonStr += "\n" +
+                                "<script type='text/javascript' src='https://github.com/jnordberg/gif.js/blob/master/dist/gif.js'></script>\n" +
+                                "<script type='text/javascript' src='https://raw.githubusercontent.com/jnordberg/gif.js/master/dist/gif.worker.js' ></script>" +
+                                "<script type='text/javascript' src='script.js'></script>";
 
                         if (v.size() == 0) {
                             jsonStr = "<h1>Unfortunately, we were not able to understand the image.</h1>";
                         }
+
+                        jsonStr += "</body></html>";
 
                         System.out.println(jsonStr);
                         TextFileWriter writer = new TextFileWriter(WEB_ROOT + OUTPUT_PATH);

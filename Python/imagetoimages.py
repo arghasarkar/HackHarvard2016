@@ -114,7 +114,7 @@ def entityextraction(inputvalue,lang):
         #print ind
         actualstring=inputvalue.split()
         #print actualstring
-        grammar=["VB","RB","NN","NNP","VBG","NNS","DT","JJ","VBD"]
+        grammar=["VB","RB","NN","NNP","VBG","NNS", "DT", "JJ","VBD"]
         count=0
         result=[]
         while count<len(actualstring):
@@ -223,6 +223,7 @@ print coordinates
 #print string
 token=GetToken()
 string=GetTextAndTranslate(token,lang,string)
+print string
 listvalues=entityextraction(string,"en")
 for i in listvalues:
     print genImageLink(i)
