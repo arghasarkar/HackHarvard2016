@@ -59,12 +59,12 @@ public class Executor {
                         // read the output from the command
                         System.out.println("Here is the standard output of the command:\n");
                         String s = null;
-                        boolean firstPass = true;
+                        int curCount = 0;
                         while ((s = stdInput.readLine()) != null) {
-                            if (!firstPass) {
+                            if (curCount > 1) {
                                 extractUrl(s);
                             }
-                            firstPass = false;
+                            curCount++;
                         }
 
                         String jsonStr = "";
