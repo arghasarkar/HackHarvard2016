@@ -111,9 +111,9 @@ def entityextraction(inputvalue,lang):
             x=data.find('"')
             data=data[x+1:]
         del ind[-1]
-        #print ind
+        print ind
         actualstring=inputvalue.split()
-        #print actualstring
+        print actualstring
         grammar=["VB","RB","NN","NNP","VBG","NNS","DT","JJ"]
         count=0
         result=[]
@@ -212,7 +212,7 @@ def GetTextAndTranslate(finalToken,fromLangCode,textToTranslate):
  
 #End GetTextAndTranslate()
 
-url="http://images.smartsign.com/img/lg/K/Spanish-Precaucion-Ninos-Jugando-Sign-K-9346.gif"
+#url="http://images.smartsign.com/img/lg/K/Spanish-Precaucion-Ninos-Jugando-Sign-K-9346.gif"
 string,coordinates=imagetotext(url)
 lang=detectLanguage(string)
 #print string

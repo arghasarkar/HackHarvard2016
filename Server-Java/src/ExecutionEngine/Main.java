@@ -15,11 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
         String pythonPath = "C:\\Users\\argha_sarkar1994\\Documents\\GitHub\\HackHarvard2016\\Python\\";
-        String url = "http://ef3b0513.ngrok.io/uploads/1477160543.jpg";
+        String url = new String("http://il3.picdn.net/shutterstock/videos/12627623/thumb/11.jpg");
         try {
             Runtime rt = Runtime.getRuntime();
             //String[] commands = {"C:\\Python27\\python", " " + pythonPath + "\\imagetoimages.py " + url};
-            String[] commands = {"C:\\Python27\\python", "C:\\Users\\argha_sarkar1994\\Documents\\GitHub\\HackHarvard2016\\Python\\imagetoimages.py", "http://ef3b0513.ngrok.io/uploads/1477160543.jpg"};
+            String[] commands = {"C:\\Python27\\python", "C:\\Users\\argha_sarkar1994\\Documents\\GitHub\\HackHarvard2016\\Python\\imagetoimages.py", url};
             Arrays.toString(commands);
             Process proc = rt.exec(commands);
 
@@ -32,14 +32,12 @@ public class Main {
             // read the output from the command
             System.out.println("Here is the standard output of the command:\n");
             String s = null;
+            boolean firstPass = true;
             while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
-
-            // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
+                if (!firstPass) {
+                    extractUrl(s);
+                }
+                firstPass = false;
             }
 
         } catch (Exception e) {
@@ -47,5 +45,21 @@ public class Main {
         }
 
 
+    }
+
+    private static String extractUrl(String rawUrl) {
+        try {
+            String decoded = java.net.URLDecoder.decode(rawUrl, "UTF-8");
+            decoded = decoded.replace("&p=DevEx,5008.1", "");
+            decoded = decoded.substring(0);
+            System.out.println(decoded.lastIndexOf("http"));
+
+            decoded = decoded.substring(decoded.lastIndexOf("http"));
+            System.out.println(decoded);
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+
+        return "";
     }
 }
