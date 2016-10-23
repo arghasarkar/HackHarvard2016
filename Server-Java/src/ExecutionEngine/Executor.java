@@ -1,5 +1,6 @@
 package ExecutionEngine;
 
+import javax.xml.soap.Text;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -7,12 +8,17 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class Executor {
 
     private static String UPLOAD_DIRECTORY = "C:\\xampp\\htdocs\\uploads\\";
+    private static String WEB_ROOT = "C:\\xampp\\htdocs\\";
+    private static String OUTPUT_PATH = "output.php";
     private static String WEB_PATH = "http://ef3b0513.ngrok.io/uploads/";
+
+    private static Vector<String> v = new Vector<String>();
 
     private static String LAST_FILE_NAME = "";
 
@@ -27,6 +33,8 @@ public class Executor {
          */
         while (true) {
             try {
+                v.removeAllElements();
+
                 String fileName = newFileUploaded();
                 if (!fileName.equals("")) {
                     // New file has been uploaded
@@ -58,6 +66,22 @@ public class Executor {
                             }
                             firstPass = false;
                         }
+
+                        String jsonStr = "";
+
+                        for (int i = 0; i < v.size(); i++) {
+                            String tempImg = "<img class='output-images' src='" + v.elementAt(i) + "' alt='some image' />";
+                            jsonStr += tempImg;
+                        }
+
+                        if (v.size() == 0) {
+                            jsonStr = "<h1>Unfortunately, we were not able to understand the image.</h1>";
+                        }
+
+                        System.out.println(jsonStr);
+                        TextFileWriter writer = new TextFileWriter(WEB_ROOT + OUTPUT_PATH);
+                        writer.writeToFile(jsonStr);
+                        writer.closeWriter();
 
                     } catch (Exception e) {
                         e.printStackTrace(System.err);
@@ -104,6 +128,7 @@ public class Executor {
             System.out.println(decoded.lastIndexOf("http"));
 
             decoded = decoded.substring(decoded.lastIndexOf("http"));
+            v.add(decoded);
             System.out.println(decoded);
         } catch (Exception e) {
             e.printStackTrace(System.err);
