@@ -62,11 +62,7 @@ public class Executor {
                     } catch (Exception e) {
                         e.printStackTrace(System.err);
                     }
-
-
-
-
-
+                    System.out.println("----------------");
                 }
             } catch (Exception e) {
                 e.printStackTrace(System.err);
