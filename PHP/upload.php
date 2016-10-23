@@ -53,5 +53,13 @@ if ($uploadOk == 0) {
     }
 }
 ?>
+
+
+
+
+
+
+<!--Start coding below this line-->
+
 <h1>Your request is being processed. Please have patience for the next 10 seconds</h1>
 <meta http-equiv="refresh" content="10; URL='http://ef3b0513.ngrok.io/output.php'" />
