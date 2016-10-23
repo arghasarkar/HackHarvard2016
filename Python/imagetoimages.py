@@ -111,20 +111,22 @@ def entityextraction(inputvalue,lang):
             x=data.find('"')
             data=data[x+1:]
         del ind[-1]
-        print ind
+        #print ind
         actualstring=inputvalue.split()
-        print actualstring
-        grammar=["VB","RB","NN","NNP","VBG","NNS","DT","JJ"]
+        #print actualstring
+        grammar=["VB","RB","NN","NNP","VBG","NNS","DT","JJ","VBD"]
         count=0
         result=[]
-        for i in ind:
+        while count<len(actualstring):
             for x in grammar:
-                if i==x:
+                if ind[count]==x:
                     result.append(actualstring[count])
             count=count+1
+        #print "abc"
+        return result
         #print result
         conn.close()
-        return result
+        
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 def genImageLink(inputValue):
@@ -172,7 +174,7 @@ def genImageLink(inputValue):
 #inputvalue="Wet floor ahead"   
 #inputvalue="Slow down kids playing"   
 #inputvalue="Do not enter workers only"  
-#url=sys.argv[1]
+url=sys.argv[1]
 def GetToken(): #Get the access token from ADM, token is good for 10 minutes
     urlArgs = {
         'client_id': 'imagetranslationapi',
@@ -212,7 +214,7 @@ def GetTextAndTranslate(finalToken,fromLangCode,textToTranslate):
  
 #End GetTextAndTranslate()
 
-#url="http://images.smartsign.com/img/lg/K/Spanish-Precaucion-Ninos-Jugando-Sign-K-9346.gif"
+#url="https://msmfl.files.wordpress.com/2011/10/img_1611.jpg"
 string,coordinates=imagetotext(url)
 lang=detectLanguage(string)
 #print string
