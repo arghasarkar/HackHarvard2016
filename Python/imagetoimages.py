@@ -214,7 +214,8 @@ def GetTextAndTranslate(finalToken,fromLangCode,textToTranslate):
  
 #End GetTextAndTranslate()
 
-#url="https://msmfl.files.wordpress.com/2011/10/img_1611.jpg"
+#url="http://il3.picdn.net/shutterstock/videos/12627623/thumb/11.jpg"
+url=sys.argv[1]
 string,coordinates=imagetotext(url)
 lang=detectLanguage(string)
 #print string
@@ -224,4 +225,4 @@ token=GetToken()
 string=GetTextAndTranslate(token,lang,string)
 listvalues=entityextraction(string,"en")
 for i in listvalues:
-    print genImageLink(i)   
+    print genImageLink(i)
